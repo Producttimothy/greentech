@@ -50,6 +50,51 @@ filters.forEach((button) => {
 const form = document.querySelector('.inquiry-form');
 const formEndpointId = typeof window.GT_FORM_ENDPOINT === 'string' ? window.GT_FORM_ENDPOINT.trim() : '';
 if (form && formEndpointId) form.action = `https://formspree.io/f/${formEndpointId}`;
+if (form) {
+  const success = document.querySelector('[data-form-success]');
+  const resetButton = success?.querySelector('[data-form-reset]');
+  const error = form.querySelector('[data-form-error]');
+  const submitButton = form.querySelector('[type="submit"]');
+  const submitText = submitButton?.querySelector('[data-submit-text]');
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+
+    if (error) error.hidden = true;
+    if (submitButton) submitButton.disabled = true;
+    if (submitText) submitText.textContent = 'Wird gesendet …';
+    form.setAttribute('aria-busy', 'true');
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+      if (!response.ok) throw new Error(`Formspree antwortete mit ${response.status}`);
+
+      form.reset();
+      form.hidden = true;
+      if (success) {
+        success.hidden = false;
+        success.focus();
+      }
+    } catch {
+      if (error) error.hidden = false;
+    } finally {
+      form.removeAttribute('aria-busy');
+      if (submitButton) submitButton.disabled = false;
+      if (submitText) submitText.textContent = 'Anfrage absenden';
+    }
+  });
+
+  resetButton?.addEventListener('click', () => {
+    if (success) success.hidden = true;
+    form.hidden = false;
+    form.querySelector('select, input:not([type="hidden"])')?.focus();
+  });
+}
 
 document.querySelectorAll('.service-card').forEach((card, index) => {
   card.classList.add('reveal');

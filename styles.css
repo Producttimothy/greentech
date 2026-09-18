@@ -159,6 +159,16 @@ button, summary { cursor: pointer; }
 .checkbox-label span { margin: 0 !important; color: var(--muted); font-size: 12px !important; font-weight: 400 !important; line-height: 1.55; letter-spacing: 0 !important; }
 .checkbox-label a { text-decoration: underline; }
 .button-submit { width: 100%; border: 0; }
+.button-submit:disabled { cursor: wait; opacity: .72; }
+.inquiry-form[hidden], .form-success[hidden], .form-error[hidden] { display: none !important; }
+.form-error { margin: 16px 0 0; padding: 13px 15px; border-left: 3px solid #a33a31; background: #f9e9e6; color: #6a211b; font-size: 13px; line-height: 1.55; }
+.form-error a { font-weight: 800; text-decoration: underline; }
+.form-success { min-height: 100%; padding: 54px 48px; background: var(--paper); color: var(--ink); outline: none; }
+.form-success-icon { display: grid; place-items: center; width: 62px; height: 62px; margin-bottom: 34px; border-radius: 50%; background: var(--green); color: var(--ink-deep); }
+.form-success-icon svg { width: 31px; height: 31px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.form-success h3 { margin: 18px 0 12px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(38px, 5vw, 58px); line-height: 1; letter-spacing: -.045em; }
+.form-success > p:not(.eyebrow) { max-width: 520px; margin: 0 0 38px; color: var(--muted); font-size: 17px; line-height: 1.7; }
+.form-success .button { max-width: 320px; }
 .honeypot { position: absolute !important; left: -9999px !important; }
 .form-notice { margin: 16px 0 0; padding: 12px; background: var(--green-soft); font-size: 13px; line-height: 1.5; }
 .faq-section { padding-block: 130px; display: grid; grid-template-columns: .75fr 1.25fr; gap: 10vw; }
@@ -390,6 +400,7 @@ footer { background: #061a1d; color: white; }
   .filter { width: 100%; min-height: 44px; padding-inline: 12px; }
   .form-row { grid-template-columns: 1fr; gap: 0; }
   .inquiry-form { padding: 28px 22px; margin-inline: -4px; }
+  .form-success { padding: 38px 24px; margin-inline: -4px; }
   .inquiry-form input:not([type="checkbox"]), .inquiry-form select, .inquiry-form textarea { font-size: 16px; }
   .quote-inner { padding-block: 68px; }
   .price-teaser, .calculator-heading { align-items: flex-start; flex-direction: column; }
